@@ -1,3 +1,3 @@
-## Terraform Old Classic Load Balancer
+## Terraform Old Classic Elastic Load Balancer ELB
 
 
