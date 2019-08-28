@@ -1,4 +1,4 @@
-## AWS + Terraform + Examples
+## Terraform Examples
 * This Repo is designed to build to store some common Terraform Examples that i am using on my daily basis
 
 * Before applying the Terraform IAC(Infrastructure As Code) make sure that you setup terraform.tfvars like below with your access and secret keys like below:
