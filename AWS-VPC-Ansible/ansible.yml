@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: false
+
+  tasks:
+    - name: Wait for ssh connection to become alive
+      wait_for_connection:
+        delay: 1
+        timeout: 300
+
+    - name: Gather facts manually
+      setup:
+
+    - name: Update all packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install Nginx Server
+      apt:
+        name: ['nginx']
+        state: present
+
+    - name: Install index.html from template
+      template:
+        src: index-template.j2
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: 0644
+

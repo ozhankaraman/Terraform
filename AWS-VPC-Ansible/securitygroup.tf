@@ -1,16 +1,8 @@
-data "aws_vpc" "default" {
-  default = true
-}
-
-data "aws_security_group" "default" {
-  name   = "default"
-  vpc_id = data.aws_vpc.default.id
-}
-
-resource "aws_security_group" "allow-ssh-http-https" {
-  vpc_id      = data.aws_vpc.default.id
-  name        = "allow-ssh-http-https"
+resource "aws_security_group" "allow-ssh-http-test" {
+  vpc_id      = module.vpc-test.vpc_id
+  name        = "allow-ssh-http"
   description = "security group that allows ssh and all egress traffic"
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -32,11 +24,8 @@ resource "aws_security_group" "allow-ssh-http-https" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  tags = {
+    Name = "allow-ssh-http"
   }
 }
 
