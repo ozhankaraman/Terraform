@@ -1,5 +1,6 @@
 resource "aws_instance" "instance_ansible" {
   ami           = var.AMIS[var.AWS_REGION]
+  # ami           = "ami-cd49ac20"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.mykey.key_name
   vpc_security_group_ids = [aws_security_group.allow-ssh-http-https.id]

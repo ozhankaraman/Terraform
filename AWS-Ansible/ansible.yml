@@ -22,7 +22,7 @@
 
     - name: Install Nginx Server
       apt:
-        name: ['nginx']
+        name: ['nginx', 'htop']
         state: present
 
     - name: Install index.html from template
