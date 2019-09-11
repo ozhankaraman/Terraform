@@ -9,7 +9,7 @@ resource "aws_instance" "instance_ansible" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i inventory ansible.yml"
+    command = "ansible-playbook -i inventory ansible.yml "
   }
 
   tags = {
