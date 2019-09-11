@@ -1,4 +1,4 @@
-resource "aws_instance" "instance2" {
+resource "aws_instance" "instance_userdata" {
   ami           = var.AMIS[var.AWS_REGION]
   instance_type = "t2.micro"
   key_name      = aws_key_pair.mykey.key_name
@@ -12,7 +12,7 @@ resource "aws_instance" "instance2" {
 }
 
 output "User_Data_Instance_IP" {
-  value = aws_instance.instance2.public_ip
+  value = aws_instance.instance_userdata.public_ip
 }
 
 
