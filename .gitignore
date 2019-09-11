@@ -6,4 +6,4 @@ mykey
 mykey.pub
 inventory
 backend.tf
-.plan
+*.plan
