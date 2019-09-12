@@ -18,18 +18,20 @@ resource "aws_instance" "instance_ansible" {
   }
 }
 
-resource "aws_ebs_volume" "ansible_vol1" {
+resource "aws_ebs_volume" "ansible-sdf-vol" {
   availability_zone = "${aws_instance.instance_ansible.availability_zone}"
   size = 1
+  type = "gp2"
 
   tags = {
     Name = "Ansible Instance Second Volume"
+    Mount_Point = "/u01"
   }
 }
 
-resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.ansible_vol1.id}"
+resource "aws_volume_attachment" "ansible-sdf-att" {
+  device_name = "/dev/sdf"
+  volume_id   = "${aws_ebs_volume.ansible-sdf-vol.id}"
   instance_id = "${aws_instance.instance_ansible.id}"
 }
 
