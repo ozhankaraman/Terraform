@@ -1,8 +1,8 @@
 resource "aws_instance" "instance_ansible" {
-  ami           = var.AMIS[var.AWS_REGION]
+  ami = var.AMIS[var.AWS_REGION]
   # ami           = "ami-cd49ac20"
-  instance_type = "t2.micro"
-  key_name      = aws_key_pair.mykey.key_name
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.mykey.key_name
   vpc_security_group_ids = [aws_security_group.allow-ssh-http-https.id]
 
   provisioner "local-exec" {
@@ -16,11 +16,23 @@ resource "aws_instance" "instance_ansible" {
   tags = {
     Name = "Ansible Managed Instance"
   }
+}
 
+resource "aws_ebs_volume" "ansible_vol1" {
+  availability_zone = "${aws_instance.instance_ansible.availability_zone}"
+  size = 1
+
+  tags = {
+    Name = "Ansible Instance Second Volume"
+  }
+}
+
+resource "aws_volume_attachment" "ebs_att" {
+  device_name = "/dev/sdh"
+  volume_id   = "${aws_ebs_volume.ansible_vol1.id}"
+  instance_id = "${aws_instance.instance_ansible.id}"
 }
 
 output "Ansible_Instance_IP" {
   value = aws_instance.instance_ansible.public_ip
 }
-
-
