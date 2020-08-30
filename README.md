@@ -31,35 +31,31 @@ terraform {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "",
+            "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
+                "dynamodb:CreateTable",
+                "dynamodb:PutItem",
+                "dynamodb:DescribeTable",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "s3:CreateBucket",
                 "s3:ListBucket",
-                "s3:GetBucketVersioning",
-                "s3:CreateBucket"
+                "s3:GetBucketVersioning"
             ],
-            "Resource": "arn:aws:s3:::<bucket name>"
+            "Resource": [
+                "arn:aws:dynamodb:*:*:table/<table name>",
+                "arn:aws:s3:::<bucket name>"
+            ]
         },
         {
-            "Sid": "",
+            "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": [
                 "s3:PutObject",
                 "s3:GetObject"
             ],
-            "Resource": "arn:aws:s3:::<bucket name>"
-        },
-        {
-            "Sid": "",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:PutItem",
-                "dynamodb:GetItem",
-                "dynamodb:DescribeTable",
-                "dynamodb:DeleteItem",
-                "dynamodb:CreateTable"
-            ],
-            "Resource": "arn:aws:dynamodb:*:*:table/<table name>"
+            "Resource": "arn:aws:s3:::<bucket name>/*"
         }
     ]
 }
